@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    x:Class="UsersAppMVVM.Views.UserPage"
+    Title="Сотрудник">
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="160" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="64" />
+            </Grid.RowDefinitions>
+            <Frame
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Grid.Row="0"
+                Margin="10"
+                Padding="0"
+                WidthRequest="144"
+                HeightRequest="144"
+                CornerRadius="90"
+                HasShadow="False"
+                IsClippedToBounds="True"
+                VerticalOptions="Center"
+                HorizontalOptions="Center">
+                <Image
+                    Source="{Binding ImageLarge}"
+                    Aspect="Fill">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding ListViewModel.TapImageCommand}"
+                            CommandParameter="{Binding}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </Frame>
+            <TableView
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Grid.Row="1"
+                VerticalOptions="Fill" 
+                HorizontalOptions="Fill"
+                Intent="Data">
+                <TableView.Root>
+                    <TableRoot>
+                        <TableSection 
+                            Title="Персональные данные">
+                            <TextCell
+                                Text="{Binding FirstName}"
+                                TextColor="#424242"/>
+                            <TextCell
+                                Text="{Binding LastName}"
+                                TextColor="#424242"/>
+                            <TextCell
+                                Text="{Binding Phone}"
+                                TextColor="#424242"/>
+                            <TextCell
+                                Text="{Binding Email}"
+                                TextColor="#424242"/>
+                        </TableSection>
+                    </TableRoot>
+                </TableView.Root>
+            </TableView>
+            <Button 
+                Grid.Column="0"
+                Grid.Row="2"  
+                Command="{Binding ListViewModel.CallUserCommand}"
+                CommandParameter="{Binding}" 
+                Text="Позвонить"
+                Margin="10,10,5,10"
+                CornerRadius="90"
+                VerticalOptions="FillAndExpand" 
+                HorizontalOptions="FillAndExpand" />
+            <Button 
+                Grid.Column="1"
+                Grid.Row="2"  
+                Command="{Binding ListViewModel.WriteUserCommand}"
+                CommandParameter="{Binding}" 
+                Text="Написать"
+                Margin="5,10,10,10"
+                CornerRadius="90"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand" />
+        </Grid>
+    </ContentPage.Content>
+
+</ContentPage>

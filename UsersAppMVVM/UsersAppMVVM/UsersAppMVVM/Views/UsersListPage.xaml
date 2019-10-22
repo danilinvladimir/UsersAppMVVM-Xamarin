@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    x:Class="UsersAppMVVM.Views.UsersListPage"
+    Title="Список сотрудников">
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <SearchBar
+                Grid.Column="0"
+                Grid.Row="0"
+                x:Name="searchBar"
+                Placeholder="Поиск сотрудника"
+                TextChanged="Searching"/>
+            <ListView
+                Grid.Column="0"
+                Grid.Row="1"
+                x:Name="UsersListView"
+                ItemsSource="{Binding Users}"
+                SelectedItem="{Binding SelectedUser, Mode=TwoWay}" 
+                HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout
+                                Padding="10"
+                                Orientation="Horizontal">
+                                <Frame
+                                    Padding="0"
+                                    WidthRequest="54"
+                                    HeightRequest="54"
+                                    CornerRadius="90"
+                                    HasShadow="False"
+                                    IsClippedToBounds="True"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Start">
+                                    <Image
+                                        Source="{Binding ImageMedium}"
+                                        Aspect="Fill"/>
+                                </Frame>
+                                <Label
+                                    Text="{Binding FirstName}"
+                                    FontSize="Body"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Start"/>
+                                <Label
+                                    Text="{Binding LastName}"
+                                    FontSize="Body"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Start"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <StackLayout
+                        x:Name="Foter"
+                        IsVisible="True">
+                        <Button
+                            x:Name="MoreButton"
+                            Text="Загрузить еще"
+                            BackgroundColor="Transparent"
+                            Command="{Binding MoreCommand}"
+                            IsVisible="{Binding ButtonMoreActivated}"
+                            IsEnabled="{Binding ButtonMoreActivated}"/>
+                    </StackLayout>
+                </ListView.Footer>
+            </ListView>
+            <ActivityIndicator 
+                Grid.Column="0"
+                Grid.Row="0"
+                Grid.RowSpan="2" 
+                HeightRequest="48"
+                WidthRequest="48"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                IsRunning="{Binding Loading}"
+                IsVisible="{Binding Loading}"
+                IsEnabled="{Binding Loading}"/>
+            <Button
+                Grid.Column="0"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                ImageSource="round_refresh_24"
+                HeightRequest="54"
+                WidthRequest="54"
+                CornerRadius="90"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                Command="{Binding RepeatCommand}"
+                IsVisible="{Binding ButtonRepeatActivated}"
+                IsEnabled="{Binding ButtonRepeatActivated}"/>
+            <Label
+                Grid.Column="0"
+                Grid.Row="1"
+                Text="{Binding Status}"
+                Margin="10"
+                FontSize="Default"
+                VerticalOptions="End"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"/>
+        </Grid>
+    </ContentPage.Content>
+
+</ContentPage>
